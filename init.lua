@@ -1,0 +1,7 @@
+require "core.options"
+require "core.keymaps"
+require "plugins.packer"
+require "core.colorscheme"
+require "core.cmp"
+require "core.lsp"
+require "core.autocommands"
