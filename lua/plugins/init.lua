@@ -14,8 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 local lazy = require("lazy")
 
 lazy.setup({
-    -- Package manager
-    { 'wbthomason/packer.nvim' },
     -- LSP
     { 'williamboman/mason.nvim' },
     { 'neovim/nvim-lspconfig' },
@@ -62,8 +60,10 @@ lazy.setup({
     -- Snippets
     {
         "L3MON4D3/LuaSnip",
-        tag = "v2.*",
-        run = "make install_jsregexp"
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
     },
     { "rafamadriz/friendly-snippets" },
     { "saadparwaiz1/cmp_luasnip" },
@@ -79,10 +79,6 @@ lazy.setup({
         end
     },
     {
-        'nvim-telescope/telescope-fzf-native.nvim', -- Improves sorting performance
-        run = 'make',
-    },
-    {
         'jvgrootveld/telescope-zoxide',
         dependencies = {
             'nvim-lua/popup.nvim',
@@ -90,23 +86,12 @@ lazy.setup({
             'nvim-telescope/telescope.nvim',
         },
     },
-    {
-        'nvim-telescope/telescope-ui-select.nvim', -- Presents native selection dialogs with telescope
-        config = function()
-            require 'plugins.config.telescope-ui-select'
-        end
-    },
+    { 'nvim-telescope/telescope-ui-select.nvim' }, -- Presents native selection dialogs with telescope
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
     {
         'folke/zen-mode.nvim',
         config = function()
             require 'plugins.config.zen-mode'
-        end
-    },
-    {
-        'ZSaberLv0/eregex.vim',
-        config = function()
-            require 'plugins.config.eregex'
         end
     },
     { 'stevearc/dressing.nvim' },
@@ -130,9 +115,7 @@ lazy.setup({
     { 'Raimondi/delimitMate' },
     {
         'phaazon/hop.nvim',
-        config = function()
-            require 'plugins.config.hop'
-        end
+        config = true
     },
     { 'svermeulen/vim-cutlass' },
     {
@@ -143,24 +126,15 @@ lazy.setup({
     },
     {
         'nacro90/numb.nvim',
-        config = function()
-            require 'plugins.config.numb'
-        end
+        config = true
     },
-    {
-        'VonHeikemen/searchbox.nvim',
-        dependencies = {
-            'MunifTanjim/nui.nvim'
-        }
-    },
-    { 'rickhowe/diffchar.vim' },    -- Better diff mode
+    { 'rickhowe/diffchar.vim' }, -- Better diff mode
     { 'tpope/vim-surround' },
-    { 'lewis6991/impatient.nvim' }, -- Improves overall performance
     -- Interface
     {
         'goolord/alpha-nvim',
         event = "VimEnter",
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        -- dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require 'plugins.config.alpha'
         end
@@ -196,7 +170,6 @@ lazy.setup({
     },
     -- Aesthetic
     { 'sainnhe/gruvbox-material' },
-    -- { 'rebelot/kanagawa.nvim' },
     {
         'nvim-treesitter/nvim-treesitter',
         config = function()
@@ -210,7 +183,12 @@ lazy.setup({
         end
     },
     { 'mtdl9/vim-log-highlighting' },
-    { 'ryanoasis/vim-devicons' },
+    {
+        'nvim-tree/nvim-web-devicons',
+        config = function()
+            require 'plugins.config.nvim-web-devicons'
+        end
+    },
     -- lazy configuration
     checker = {
         enabled = true,

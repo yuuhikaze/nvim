@@ -1,31 +1,26 @@
-local installed, treesitter = pcall(require, "nvim-treesitter.configs")
-if not installed then
-    return
-end
+local parsers = {
+    "python",
+    "c",
+    "cpp",
+    "c_sharp",
+    "java",
+    "html",
+    "css",
+    "javascript",
+    "json",
+    "markdown",
+    -- "markdown_inline",
+    "vim",
+    "bash",
+    "lua",
+    "gdscript",
+    "mermaid",
+    "latex",
+    "rust",
+}
 
-treesitter.setup {
-    -- A list of parser names, or "all"
-    ensure_installed = {
-        "python",
-        "c",
-        "cpp",
-        "c_sharp",
-        "java",
-        "html",
-        "css",
-        "javascript",
-        "json",
-        "markdown",
-        "markdown_inline",
-        "vim",
-        "bash",
-        "lua",
-        "gdscript",
-        -- "gdresource",
-        "mermaid",
-        "latex",
-        "rust",
-    },
+require("nvim-treesitter.configs").setup {
+    ensure_installed = parsers,
     highlight = {
         enable = true,
         use_languagetree = true,

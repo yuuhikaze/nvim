@@ -74,7 +74,7 @@ keyset("n", "<leader>w", ":set wrap!<CR>", opts)
 keyset("n", "<C-Space>", "za", opts)
 
 -- Reset highlighting
-keyset("n", "<leader><Space>", ":noh<CR>:SearchBoxClear<CR>", opts)
+keyset("n", "<leader><Space>", ":noh<CR>", opts)
 
 -- Show full path
 keyset("n", "<leader>p", "1<C-G>", opts)
@@ -191,7 +191,6 @@ keyset("n", "<Space>dc", ":lua require('telescope').extensions.dap.commands{}<CR
 -- Display local history [undotree]
 keyset("n", "<C-u>", ":UndotreeToggle<CR>", opts)
 
--- Unmap
-
+-- Undo mappings
 vim.api.nvim_del_keymap('n', '<C-w>d') -- Show diagnostics under the cursor
 vim.api.nvim_del_keymap('n', '<C-w><C-d>') -- Show diagnostics under the cursor

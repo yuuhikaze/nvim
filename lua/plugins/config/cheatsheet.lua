@@ -1,14 +1,5 @@
-local installed, cheatsheet = pcall(require, "cheatsheet")
-if not installed then
-	return
-end
-
-cheatsheet.setup({
-	-- bundled_cheatsheets = {
-	-- 	enabled = { 'nerd-fonts' },
-	-- 	disabled = {},
-	-- },
-	bundled_cheatsheets = false,
+require("cheatsheet").setup({
+    bundled_cheatsheets = false,
     bundled_plugin_cheatsheets = false,
     include_only_installed_plugins = false,
 

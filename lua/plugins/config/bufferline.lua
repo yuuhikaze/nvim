@@ -1,9 +1,4 @@
-local installed, bufferline = pcall(require, "bufferline")
-if not installed then
-    return
-end
-
-bufferline.setup{
+require("bufferline").setup {
     options = {
         numbers = "none",
         indicator = "",
@@ -25,40 +20,5 @@ bufferline.setup{
         separator_style = "thin",
         always_show_bufferline = true,
         offsets = { { filetype = "NvimTree", text = "" } },
-    },
-    highlights = {
-        fill = {
-            bg = '#1d1d1d',
-        },
-        tab = {
-            bg = '#1d1d1d',
-        },
-        tab_close = {
-            bg = '#1d1d1d',
-        },
-        background = {
-            bg = '#1d1d1d',
-        },
-        buffer_visible = {
-            bg = '#1d1d1d',
-        },
-        close_button = {
-            bg = '#1d1d1d',
-        },
-        close_button_visible = {
-            bg = '#1d1d1d',
-        },
-        separator = {
-            bg = '#1d1d1d',
-        },
-        separator_selected = {
-            bg = '#1d1d1d',
-        },
-        modified = {
-            bg = '#1d1d1d',
-        },
-        modified_visible = {
-            bg = '#1d1d1d',
-        },
     }
 }
