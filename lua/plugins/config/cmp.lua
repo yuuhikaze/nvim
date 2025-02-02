@@ -1,14 +1,8 @@
-local installed_cmp, cmp = pcall(require, "cmp")
-if not installed_cmp then
-    return
-end
-
-local installed_luasnip, luasnip = pcall(require, "luasnip")
-if not installed_luasnip then
-    return
-end
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 require("luasnip.loaders.from_vscode").lazy_load()
+
 local check_backspace = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
@@ -82,12 +76,13 @@ cmp.setup {
         format = function(entry, vim_item)
             -- Kind icons
             vim_item.kind = kind_icons[vim_item.kind]
-
+            if entry.source.name == "nvim_lsp_signature_help" then
+                vim_item.kind = '🐼'
+            end
             -- if entry.source.name == "cmp_tabnine" then
             --     vim_item.kind = icons.misc.Robot
             --     vim_item.kind_hl_group = "CmpItemKindTabnine"
             -- end
-
             -- NOTE: order matters
             vim_item.menu = ({
                 nvim_lsp = "",
@@ -99,6 +94,7 @@ cmp.setup {
         end,
     },
     sources = {
+        { name = 'nvim_lsp_signature_help' },
         {
             name = "nvim_lsp",
             filter = function(entry, ctx)

@@ -1,6 +1,6 @@
 local dashboard = require("alpha.themes.dashboard")
 
--- set header
+-- Set header.
 dashboard.section.header.val = {
     "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
     "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
@@ -10,7 +10,7 @@ dashboard.section.header.val = {
     "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
 }
 
--- set menu
+-- Set menu.
 dashboard.section.buttons.val = {
     dashboard.button("o", "  Recently opened files", ":Telescope oldfiles<CR>"),
     dashboard.button("e", "  New file", ":enew<CR>"),
@@ -21,5 +21,5 @@ dashboard.section.buttons.val = {
     dashboard.button("i", "  Settings", ":e ~/.config/nvim/init.lua<CR>"),
 }
 
--- send config to alpha
+-- Send options to alpha.
 require("alpha").setup(dashboard.opts)

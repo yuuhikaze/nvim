@@ -1,4 +1,4 @@
--- status bar style
+-- Status bar style
 local function process_sections(sections)
     for name, section in pairs(sections) do
         local left = name:sub(9, 10) < 'x'
@@ -16,7 +16,7 @@ end
 require("lualine").setup {
     options = {
         theme = 'auto',
-        disabled_filetypes = { 'NvimTree', 'vim-plug' },
+        disabled_filetypes = { 'NvimTree', 'vim-plug', 'dapui_scopes', 'dapui_breakpoints', 'dapui_stacks', 'dapui_watches', 'dap_repl', 'dapui_console' },
     },
     sections = process_sections {
         lualine_a = { 'mode' },
@@ -38,6 +38,6 @@ require("lualine").setup {
     extensions = {},
 }
 
---[[ credits
+--[[ Credits
 https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/slanted-gaps.lua
 ]]

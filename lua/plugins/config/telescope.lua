@@ -86,7 +86,7 @@ local options = {
 
 telescope.setup(options)
 
--- load extensions
+-- Load extensions.
 local extensions = {
     "ui-select",
     "zoxide",

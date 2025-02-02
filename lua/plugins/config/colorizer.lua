@@ -11,5 +11,5 @@ require("colorizer").setup({ "*" }, {
     mode = "background", -- Set the display mode.)
 })
 
--- Run colorizer on any file
+-- Run colorizer on any file.
 vim.cmd([[autocmd BufRead,BufWritePre * ColorizerAttachToBuffer]])

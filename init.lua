@@ -2,7 +2,5 @@ vim.loader.enable()
 require "core.options"
 require "core.keymaps"
 require "plugins"
-require "core.colorscheme"
-require "core.cmp"
 require "core.lsp"
 require "core.autocommands"

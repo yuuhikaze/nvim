@@ -1,8 +1,3 @@
-local installed, nvim_tree = pcall(require, "nvim-tree")
-if not installed then
-    return
-end
-
 local function on_attach(bufnr)
     local api = require('nvim-tree.api')
 
@@ -10,7 +5,7 @@ local function on_attach(bufnr)
         return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
     end
 
-    -- default mappings
+    -- Default mappings
     vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node, opts('CD'))
     vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer, opts('Open: In Place'))
     vim.keymap.set('n', '<C-k>', api.node.show_info_popup, opts('Info'))
@@ -63,14 +58,14 @@ local function on_attach(bufnr)
     vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open'))
     vim.keymap.set('n', '<2-RightMouse>', api.tree.change_root_to_node, opts('CD'))
 
-    -- custom mappings
+    -- Custom mappings
     vim.keymap.set('n', 'v', api.node.open.vertical, opts('Open: Vertical Split'))
     vim.keymap.set('n', 'h', api.node.open.horizontal, opts('Open: Horizontal Split'))
     vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
     vim.keymap.set('n', 'n', api.node.navigate.parent_close, opts('Close Directory'))
 end
 
-nvim_tree.setup {
+require("nvim-tree").setup {
     on_attach = on_attach,
     update_cwd = true,
     hijack_cursor = true,

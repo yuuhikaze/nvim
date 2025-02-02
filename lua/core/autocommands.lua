@@ -14,7 +14,7 @@ vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTr
 vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
 
 -- Change indentation for certain files
-vim.cmd([[autocmd FileType yaml,xml setlocal smartindent tabstop=2 shiftwidth=2 expandtab]])
+vim.cmd([[autocmd FileType json,yaml,xml setlocal smartindent tabstop=2 shiftwidth=2 expandtab]])
 
 -- Disable auto-comment on new line
 vim.cmd([[autocmd BufNewFile,BufEnter * setlocal formatoptions-=cro]])

@@ -42,33 +42,41 @@ output: ~/.config/nvim
 ]]
 local script_path = vim.fn.expand("<sfile>:p:h")
 
--- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
+-- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
 local servers = {
-    -- "pyright",
+    "mesonlsp",
+    "texlab",
+    "pylsp",
     "clangd",
     "csharp_ls",
+    -- "ltex",
     "html",
     "cssls",
-    "tsserver",
+    "ts_ls",
+    "svelte",
     "jsonls",
+    "taplo",
     "vimls",
     "bashls",
     "lua_ls",
     "marksman",
     "matlab_ls",
-    "rust_analyzer", -- includes formatter (rustfmt)
+    "slint_lsp",
+    "glsl_analyzer",
 }
 
 -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
 local debuggers = {
     "bash",
-    "cppdbg",
+    -- "cppdbg",
+    "codelldb",
 }
 
 -- https://mason-registry.dev/registry/list
 local tools = {
-    -- "mypy",
-    "ruff",
+    "mypy",
+    "pylint",
+    "prettier",
     "black",
     "google-java-format",
     "shellcheck",
@@ -97,9 +105,22 @@ local default_options = {
     capabilities = handlers.capabilities,
 }
 
-local lua_options = {
-    on_attach = handlers.on_attach,
-    capabilities = handlers.capabilities,
+local pylsp_options = vim.tbl_deep_extend("force", default_options, {
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = {
+                    enabled = true,
+                    ignore = { 'E501', 'E231' },
+                    maxLineLength = 120
+                },
+                yapf = { enabled = true }
+            }
+        }
+    },
+})
+
+local lua_ls_options = vim.tbl_deep_extend("force", default_options, {
     settings = {
         Lua = {
             workspace = {
@@ -107,10 +128,25 @@ local lua_options = {
             },
         },
     },
-}
+})
+
+local html_options = vim.tbl_deep_extend("force", default_options, {
+    init_options = {
+        provideFormatter = false
+    },
+})
 
 local server_options = {
-    ["lua_ls"] = lua_options,
+    ["lua_ls"] = lua_ls_options,
+    ["pylsp"] = pylsp_options,
+    ["html"] = html_options,
+}
+
+vim.g.rustaceanvim = {
+    server = {
+        on_attach = handlers.on_attach,
+        capabilities = handlers.capabilities,
+    }
 }
 
 for _, server in pairs(servers) do
@@ -133,13 +169,9 @@ if not installed_null_ls then
     return
 end
 
-local diagnostics = null_ls.builtins.diagnostics
--- local code_actions = null_ls.builtins.code_actions
 local formatting = null_ls.builtins.formatting
 local sources = {
     -- Python
-    -- diagnostics.mypy,
-    -- diagnostics.ruff,
     formatting.black,
     -- Java
     formatting.google_java_format.with({ extra_args = { "--aosp" } }),
@@ -150,7 +182,12 @@ local sources = {
     -- Markdown
     formatting.markdownlint.with({ extra_args = { string.format("--config=%s/lua/core/formatters/config/.markdownlint.jsonc", script_path) } }),
     -- CPP
-    formatting.clang_format.with({ extra_args = { string.format("--style=%s", "{IndentWidth: 4, ColumnLimit: 300, IndentCaseLabels: true}") } }),
+    formatting.clang_format.with({ extra_args = { string.format("--style=%s", "{IndentWidth: 4, ColumnLimit: 0, IndentCaseLabels: true}") } }),
+    -- HTML
+    formatting.prettier.with({
+        filetypes = { "html" },
+        extra_args = { "--tab-width=4" },
+    }),
 }
 
 null_ls.setup({ sources = sources })

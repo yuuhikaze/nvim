@@ -1,37 +1,27 @@
-local installed, dap = pcall(require, "dap")
-if not installed then
-    return
-end
+local dap = require('dap')
 
-dap.adapters.cppdbg = {
-    id = 'cppdbg',
-    type = 'executable',
-    command = vim.fn.stdpath("data") .. '/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
+dap.adapters.codelldb = {
+    type = 'server',
+    port = "${port}",
+    executable = {
+        command = vim.fn.stdpath("data") .. '/mason/packages/codelldb/extension/adapter/codelldb',
+        args = { "--port", "${port}" },
+        -- On windows you may have to uncomment this:
+        -- detached = false,
+    }
 }
 
 dap.configurations.cpp = {
     {
         name = "Launch file",
-        type = "cppdbg",
+        type = "codelldb",
         request = "launch",
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
         cwd = '${workspaceFolder}',
-        stopAtEntry = true,
+        stopOnEntry = false,
     },
-    --[[ {
-        name = 'Attach to gdbserver :1234',
-        type = 'cppdbg',
-        request = 'launch',
-        MIMode = 'gdb',
-        miDebuggerServerAddress = 'localhost:1234',
-        miDebuggerPath = '/usr/bin/gdb',
-        cwd = '${workspaceFolder}',
-        program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-    }, ]]
 }
 
 dap.configurations.c = dap.configurations.cpp

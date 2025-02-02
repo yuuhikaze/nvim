@@ -11,9 +11,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local lazy = require("lazy")
-
-lazy.setup({
+require("lazy").setup({
+    -- [Plugins]
     -- LSP
     { 'williamboman/mason.nvim' },
     { 'neovim/nvim-lspconfig' },
@@ -24,13 +23,24 @@ lazy.setup({
         'nvimtools/none-ls.nvim',
         dependencies = "gbprod/none-ls-shellcheck.nvim",
     },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^5', -- Recommended
+        lazy = false,   -- This plugin is already lazy
+    },
     { 'mfussenegger/nvim-jdtls' },
     -- CMP
-    { 'hrsh7th/nvim-cmp' },
+    {
+        'hrsh7th/nvim-cmp',
+        config = function()
+            require 'plugins.config.cmp'
+        end
+    },
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-path' },
     { 'hrsh7th/cmp-cmdline' },
+    { 'hrsh7th/cmp-nvim-lsp-signature-help' },
     {
         'Exafunction/codeium.vim',
         config = function()
@@ -60,12 +70,10 @@ lazy.setup({
     -- Snippets
     {
         "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp"
+        version = "v2.*",
+        build = "make install_jsregexp",
+        dependencies = "rafamadriz/friendly-snippets"
     },
-    { "rafamadriz/friendly-snippets" },
     { "saadparwaiz1/cmp_luasnip" },
     -- Extended functionality
     {
@@ -86,7 +94,7 @@ lazy.setup({
             'nvim-telescope/telescope.nvim',
         },
     },
-    { 'nvim-telescope/telescope-ui-select.nvim' }, -- Presents native selection dialogs with telescope
+    { 'nvim-telescope/telescope-ui-select.nvim' }, -- Presents native selection dialogs with telescope.
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
     {
         'folke/zen-mode.nvim',
@@ -94,11 +102,16 @@ lazy.setup({
             require 'plugins.config.zen-mode'
         end
     },
+    {
+        'subnut/nvim-ghost.nvim',
+        cmd = "GhostStart"
+    },
     { 'stevearc/dressing.nvim' },
     { 'mbbill/undotree' },
     { 'preservim/tagbar' },
     { 'fidian/hexmode' },
     { 'mattn/emmet-vim' },
+    -- { 'luk400/vim-jukit' },
     -- Enhancements
     {
         'Shatur/neovim-session-manager',
@@ -134,7 +147,6 @@ lazy.setup({
     {
         'goolord/alpha-nvim',
         event = "VimEnter",
-        -- dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require 'plugins.config.alpha'
         end
@@ -168,8 +180,14 @@ lazy.setup({
             require 'plugins.config.cheatsheet'
         end
     },
-    -- Aesthetic
-    { 'sainnhe/gruvbox-material' },
+    -- Aesthetics
+    {
+        'sainnhe/gruvbox-material',
+        priority = 1000,
+        config = function()
+            require 'plugins.config.grubvox-material'
+        end
+    },
     {
         'nvim-treesitter/nvim-treesitter',
         config = function()
@@ -189,7 +207,11 @@ lazy.setup({
             require 'plugins.config.nvim-web-devicons'
         end
     },
-    -- lazy configuration
+}, {
+    -- [Options]
+    install = {
+        colorscheme = { "gruvbox-material", "retrobox" },
+    },
     checker = {
         enabled = true,
         notify = false,
@@ -197,4 +219,7 @@ lazy.setup({
     change_detection = {
         notify = false,
     },
+    ui = {
+        backdrop = 100
+    }
 })

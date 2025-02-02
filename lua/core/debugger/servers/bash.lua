@@ -18,14 +18,20 @@ dap.configurations.sh = {
         pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb',
         pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir',
         trace = true,
-        file = "${file}",
         program = "${file}",
+        args = function()
+            local input = vim.fn.input('Enter options/flags: ')
+            local args = {}
+            for arg in input:gmatch("%S+") do
+                table.insert(args, arg)
+            end
+            return args
+        end,
         cwd = '${workspaceFolder}',
         pathCat = "cat",
         pathBash = "/bin/bash",
         pathMkfifo = "mkfifo",
         pathPkill = "pkill",
-        args = {},
         env = {},
         terminalKind = "integrated",
     }

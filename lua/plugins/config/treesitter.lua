@@ -1,5 +1,6 @@
 local parsers = {
     "python",
+    "meson",
     "c",
     "cpp",
     "c_sharp",
@@ -7,16 +8,25 @@ local parsers = {
     "html",
     "css",
     "javascript",
+    "typescript",
     "json",
+    "toml",
+    "yaml",
     "markdown",
     -- "markdown_inline",
     "vim",
+    "slint",
     "bash",
     "lua",
+    "glsl",
     "gdscript",
     "mermaid",
     "latex",
     "rust",
+    "go",
+    "sql",
+    "smali",
+    "svelte",
 }
 
 require("nvim-treesitter.configs").setup {

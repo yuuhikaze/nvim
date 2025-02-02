@@ -97,6 +97,7 @@ commands → Replace <Tab> with whitespace characters     | :retab
 commands → Set filetype                                 | :setf
 commands → Show history                                 | :<C-f>
 commands → Show key notation                            | :help key-notation
+commands → Set cursor to row and column                 | :call cursor(row, col)
 
 # PLUGIN SPECIFIC
 # cheatseet

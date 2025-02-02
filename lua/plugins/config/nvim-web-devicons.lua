@@ -1,17 +1,24 @@
-require("nvim-web-devicons").setup {
-    override = {
-        rs = {
-            icon = "",
-            color = "#e33b25",
-            name = "Rust"
-        },
-        toml = {
-            icon = "",
-            name = "Toml"
-        },
-        lock = {
-            icon = "󰌾",
-            name = "Lock"
-        }
+require("nvim-web-devicons").set_icon {
+    rs = {
+        icon = "",
+        color = "#e33b25",
+        name = "Rs",
+    },
+    toml = {
+        icon = "",
+        name = "Toml"
+    },
+    lock = {
+        icon = "󰌾",
+        name = "Lock"
+    },
+    txt = {
+        icon = "󰦨",
+        name = "Txt"
+    },
+    md = {
+        icon = "",
+        color = "#828b95",
+        name = "Md"
     },
 }

@@ -4,13 +4,13 @@ require("zen-mode").setup({
         height = 1,
         width = 1,
         options = {
-            signcolumn = "no", -- disable signcolumn
-            number = false, -- disable number column
-            relativenumber = false, -- disable relative numbers
+            signcolumn = "no",
+            number = false,
+            relativenumber = false,
         },
     },
     plugins = {
-        gitsigns = { enabled = false }, -- disables git signs
+        gitsigns = { enabled = false },
         tmux = { enabled = false },
         twilight = { enabled = true },
     },
