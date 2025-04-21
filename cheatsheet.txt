@@ -197,3 +197,6 @@ Toggle tagbar                                           | <C-t>
 
 # undotree
 Display local history                                   | <C-u>
+
+# nvim-ufo
+Generate folds                                          | <C-f>

@@ -5,11 +5,12 @@ end
 
 local handlers = require("core.lsp.handlers")
 local config = {
-    cmd = {'/usr/bin/jdtls'},
-    root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+    cmd = { vim.fn.stdpath("data") .. '/mason/bin/jdtls' },
+    root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
     init_options = {
         bundles = {
-            vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", true)
+            vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/java-test/extension/server/*.jar", true ),
+            vim.fn.glob(vim.fn.stdpath("data") .. "mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true)
         }
     },
     on_attach = handlers.on_attach,

@@ -7,6 +7,7 @@ local options = {
     wrap = false,
     ignorecase = true,
     signcolumn = "yes",
+    syntax = "enable",
     -- Interface
     termguicolors = true,
     background = "dark",
@@ -15,7 +16,7 @@ local options = {
     breakindent = true,
     cursorline = true,
     sidescrolloff = 20,
-    cmdheight = 2,
+    cmdheight = 1,
     showmode = false,
     splitbelow = true,
     splitright = true,

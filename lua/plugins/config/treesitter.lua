@@ -5,6 +5,7 @@ local parsers = {
     "cpp",
     "c_sharp",
     "java",
+    "kotlin",
     "html",
     "css",
     "javascript",
@@ -27,6 +28,8 @@ local parsers = {
     "sql",
     "smali",
     "svelte",
+    "proto",
+    "csv",
 }
 
 require("nvim-treesitter.configs").setup {

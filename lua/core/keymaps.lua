@@ -42,7 +42,7 @@ keyset("n", "<Space>tc", ":tabclose<CR>", opts)
 
 -- Buffer operations
 keyset("n", "<leader>bc", ":%s/\\s\\+$//e<CR>", opts)
-keyset("n", "<leader>bd", ":NvimTreeClose<CR>:bdelete!<CR>", opts)
+keyset("n", "<leader>bd", ":bdelete!<CR>", opts)
 keyset("n", "<leader>bn", ":ene<CR>", opts)
 keyset("n", "<leader>bv", ":vnew<CR>", opts)
 keyset("n", "<leader>bh", ":new<CR>", opts)
@@ -91,8 +91,8 @@ keyset("n", "<Space>R", ":%s @@@g<Left><Left>", {noremap = true})
 keyset("v", "<Space>R", ":s @\\%V@@g<Left><Left>", {noremap = true})
 
 -- Jump to character or word
-keyset("", "s", ":HopChar2<cr>", opts)
-keyset("", "S", ":HopWord<cr>", opts)
+-- keyset("", "s", ":HopChar2<cr>", opts)
+-- keyset("", "S", ":HopWord<cr>", opts)
 
 -- Enable ctrl+supr
 keyset("i", "<C-Del>", "X<Esc>ce", opts)
@@ -136,7 +136,7 @@ keyset("n", "<leader>y", "ggvG$y", opts)
 
 -- PLUGIN SPECIFIC
 -- Display keybindings [cheatsheet]
-keyset("n", "?", ":Cheatsheet<CR>", opts)
+-- keyset("n", "?", ":Cheatsheet<CR>", opts)
 
 -- Fuzzy file manager [Telescope]
 keyset("n", "<leader>ff", ":Telescope find_files hidden=true<CR>", opts) -- hidden=true → Shows hidden files
@@ -151,10 +151,10 @@ keyset("n", "mm", "dd", opts)
 keyset("n", "M", "D", opts)
 
 -- File tree [nvim-tree]
-keyset("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+-- keyset("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
 -- Toggle zen mode [zen-mode]
-keyset("n", "<leader>z", ":ZenMode<CR>", opts)
+-- keyset("n", "<leader>z", ":ZenMode<CR>", opts)
 
 -- Toggle autochdir [rooter]
 keyset("n", "<C-p>", ":RooterToggle<CR>", { noremap = true })
@@ -176,8 +176,8 @@ keyset("i", "<C-S-k>", "<CMD>call codeium#CycleCompletions(-1)<CR>", opts)
 keyset("i", "<C-c>", "<CMD>call codeium#Clear()<CR>", opts)
 
 -- [nvim-dap]
-keyset("n", "<Space>di", ":lua require('core.debugger')<CR>", opts) -- Initialize dap
-keyset("n", "<Space>du", ":lua require('dapui').toggle()<CR>", opts)
+-- keyset("n", "<Space>di", ":lua require('core.debugger')<CR>", opts) -- Initialize dap
+-- keyset("n", "<Space>du", ":lua require('dapui').toggle()<CR>", opts)
 keyset("n", "<Space>de", ":lua require('dapui').eval([[]])<Left><Left><Left>", { noremap = true }) -- Evaluate expression 
 keyset("n", "<Space>dr", ":DapContinue<CR>", opts)
 keyset("n", "<Space>db", ":DapToggleBreakpoint<CR>", opts)
@@ -189,7 +189,7 @@ keyset("n", "<Space>df", ":lua require('telescope').extensions.dap.list_breakpoi
 keyset("n", "<Space>dc", ":lua require('telescope').extensions.dap.commands{}<CR>", opts)
 
 -- Display local history [undotree]
-keyset("n", "<C-u>", ":UndotreeToggle<CR>", opts)
+-- keyset("n", "<C-u>", ":UndotreeToggle<CR>", opts)
 
 -- Undo mappings
 vim.api.nvim_del_keymap('n', '<C-w>d') -- Show diagnostics under the cursor

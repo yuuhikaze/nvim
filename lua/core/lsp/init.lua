@@ -46,12 +46,12 @@ local script_path = vim.fn.expand("<sfile>:p:h")
 local servers = {
     "mesonlsp",
     "texlab",
-    "pylsp",
+    "basedpyright",
     "clangd",
     "csharp_ls",
-    -- "ltex",
     "html",
     "cssls",
+    "tailwindcss",
     "ts_ls",
     "svelte",
     "jsonls",
@@ -63,13 +63,16 @@ local servers = {
     "matlab_ls",
     "slint_lsp",
     "glsl_analyzer",
+    "pbls",
+    "lemminx",
 }
 
 -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
 local debuggers = {
     "bash",
-    -- "cppdbg",
     "codelldb",
+    "javadbg",
+    "javatest"
 }
 
 -- https://mason-registry.dev/registry/list
@@ -87,7 +90,7 @@ local tools = {
 
 mason.setup()
 mason_lsp_installer.setup({
-    ensure_installed = servers,
+    ensure_installed = vim.tbl_extend("force", servers, { "jdtls" }),
     automatic_installation = true,
 })
 mason_dap_installer.setup({
@@ -120,6 +123,14 @@ local pylsp_options = vim.tbl_deep_extend("force", default_options, {
     },
 })
 
+local basedpyright_options = vim.tbl_deep_extend("force", default_options, {
+    settings = {
+        basedpyright = {
+          typeCheckingMode = "standard",
+        },
+    },
+})
+
 local lua_ls_options = vim.tbl_deep_extend("force", default_options, {
     settings = {
         Lua = {
@@ -136,16 +147,29 @@ local html_options = vim.tbl_deep_extend("force", default_options, {
     },
 })
 
+local clangd_options = vim.tbl_deep_extend("force", default_options, {
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
+})
+
 local server_options = {
     ["lua_ls"] = lua_ls_options,
-    ["pylsp"] = pylsp_options,
+    -- ["pylsp"] = pylsp_options,
+    ["basedpyright"] = basedpyright_options,
     ["html"] = html_options,
+    ["clangd"] = clangd_options,
 }
 
 vim.g.rustaceanvim = {
     server = {
         on_attach = handlers.on_attach,
         capabilities = handlers.capabilities,
+        default_settings = {
+            ['rust-analyzer'] = {
+                cargo = {
+                    targetDir = vim.fn.expand('~') .. '/.cargo/rust_analyzer-target'
+                },
+            },
+        },
     }
 }
 

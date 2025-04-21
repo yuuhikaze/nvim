@@ -27,5 +27,9 @@ M.on_attach = function(client, bufnr)
 end
 
 M.capabilities = cmp_nvim_lsp.default_capabilities()
+M.capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
 
 return M

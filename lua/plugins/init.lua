@@ -15,12 +15,13 @@ require("lazy").setup({
     -- [Plugins]
     -- LSP
     { 'williamboman/mason.nvim' },
-    { 'neovim/nvim-lspconfig' },
     { 'williamboman/mason-lspconfig.nvim' },
     { 'jay-babu/mason-nvim-dap.nvim' },
     { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+    { 'neovim/nvim-lspconfig' },
     {
         'nvimtools/none-ls.nvim',
+        event = 'BufRead', -- !!
         dependencies = "gbprod/none-ls-shellcheck.nvim",
     },
     {
@@ -28,19 +29,36 @@ require("lazy").setup({
         version = '^5', -- Recommended
         lazy = false,   -- This plugin is already lazy
     },
-    { 'mfussenegger/nvim-jdtls' },
+    --[[ {
+        "luckasRanarison/tailwind-tools.nvim",
+        name = "tailwind-tools",
+        build = ":UpdateRemotePlugins",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-telescope/telescope.nvim",
+            "neovim/nvim-lspconfig",
+        },
+    }, ]]
+    {
+        'mfussenegger/nvim-jdtls',
+        dependencies = "mfussenegger/nvim-dap"
+    },
     -- CMP
     {
         'hrsh7th/nvim-cmp',
+        event = 'BufRead',
+        dependencies = { -- TODO
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/cmp-nvim-lsp-signature-help',
+            'saadparwaiz1/cmp_luasnip'
+        },
         config = function()
             require 'plugins.config.cmp'
         end
     },
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/cmp-buffer' },
-    { 'hrsh7th/cmp-path' },
-    { 'hrsh7th/cmp-cmdline' },
-    { 'hrsh7th/cmp-nvim-lsp-signature-help' },
     {
         'Exafunction/codeium.vim',
         config = function()
@@ -58,10 +76,16 @@ require("lazy").setup({
     { 'mfussenegger/nvim-dap' },
     {
         'rcarriga/nvim-dap-ui',
+        keys = {
+            { "<Space>du", "<CMD>lua require('dapui').toggle()<CR>" },
+        },
         dependencies = {
             'mfussenegger/nvim-dap',
             'nvim-neotest/nvim-nio',
-        }
+        },
+        config = function()
+            require 'core.debugger'
+        end
     },
     { 'theHamsta/nvim-dap-virtual-text' },
     { 'folke/neodev.nvim' },
@@ -70,14 +94,15 @@ require("lazy").setup({
     -- Snippets
     {
         "L3MON4D3/LuaSnip",
+        event = 'BufRead',
         version = "v2.*",
         build = "make install_jsregexp",
         dependencies = "rafamadriz/friendly-snippets"
     },
-    { "saadparwaiz1/cmp_luasnip" },
     -- Extended functionality
     {
         'nvim-telescope/telescope.nvim',
+        event = 'VimEnter',
         dependencies = {
             'BurntSushi/ripgrep',
             'nvim-lua/plenary.nvim',
@@ -98,6 +123,9 @@ require("lazy").setup({
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
     {
         'folke/zen-mode.nvim',
+        keys = {
+            { "<leader>z", "<CMD>ZenMode<CR>" },
+        },
         config = function()
             require 'plugins.config.zen-mode'
         end
@@ -106,9 +134,29 @@ require("lazy").setup({
         'subnut/nvim-ghost.nvim',
         cmd = "GhostStart"
     },
-    { 'stevearc/dressing.nvim' },
-    { 'mbbill/undotree' },
-    { 'preservim/tagbar' },
+    {
+        'stevearc/dressing.nvim',
+        event = 'BufRead',
+    },
+    {
+        'kevinhwang91/nvim-ufo',
+        keys = {
+            { "<C-f>", "<CMD>lua require 'plugins.config.nvim-ufo'<CR>" },
+        },
+        dependencies = 'kevinhwang91/promise-async'
+    },
+    {
+        'mbbill/undotree',
+        keys = {
+            { "<C-u>", "<CMD>UndotreeToggle<CR>" },
+        },
+    },
+    {
+        'preservim/tagbar',
+        keys = {
+            { "<C-t>", ":Tagbar<CR>" },
+        },
+    },
     { 'fidian/hexmode' },
     { 'mattn/emmet-vim' },
     -- { 'luk400/vim-jukit' },
@@ -121,16 +169,26 @@ require("lazy").setup({
     },
     {
         'numToStr/Comment.nvim',
+        event = 'BufRead',
         config = function()
             require 'plugins.config.comment'
         end
     },
-    { 'Raimondi/delimitMate' },
+    {
+        'Raimondi/delimitMate',
+        event = { "BufRead", "BufAdd" },
+    },
     {
         'phaazon/hop.nvim',
+        keys = {
+            { "S", "<CMD>HopWord<CR>" },
+        },
         config = true
     },
-    { 'svermeulen/vim-cutlass' },
+    {
+        event = { "BufRead", "BufAdd" },
+        'svermeulen/vim-cutlass'
+    },
     {
         'airblade/vim-rooter',
         config = function()
@@ -142,7 +200,10 @@ require("lazy").setup({
         config = true
     },
     { 'rickhowe/diffchar.vim' }, -- Better diff mode
-    { 'tpope/vim-surround' },
+    {
+        'tpope/vim-surround',
+        event = { "BufRead", "BufAdd" },
+    },
     -- Interface
     {
         'goolord/alpha-nvim',
@@ -153,24 +214,33 @@ require("lazy").setup({
     },
     {
         'kyazdani42/nvim-tree.lua',
+        keys = {
+            { "<leader>e", "<CMD>NvimTreeToggle<CR>" },
+        },
         config = function()
             require 'plugins.config.nvim-tree'
         end
     },
     {
         'akinsho/bufferline.nvim',
+        event = { "BufRead", "BufAdd" },
         config = function()
             require 'plugins.config.bufferline'
         end
     },
     {
         'nvim-lualine/lualine.nvim',
+        event = { "BufRead", "BufAdd" },
+        dependencies = "Exafunction/codeium.vim",
         config = function()
             require 'plugins.config.lualine'
         end
     },
     {
         'sudormrfbin/cheatsheet.nvim',
+        keys = {
+            { "?", "<CMD>Cheatsheet<CR>" },
+        },
         dependencies = {
             'nvim-telescope/telescope.nvim',
             'nvim-lua/popup.nvim',
@@ -183,6 +253,7 @@ require("lazy").setup({
     -- Aesthetics
     {
         'sainnhe/gruvbox-material',
+        lazy = false,
         priority = 1000,
         config = function()
             require 'plugins.config.grubvox-material'
@@ -190,17 +261,30 @@ require("lazy").setup({
     },
     {
         'nvim-treesitter/nvim-treesitter',
+        event = 'VimEnter',
         config = function()
             require 'plugins.config.treesitter'
         end
     },
     {
-        'norcalli/nvim-colorizer.lua',
+        'brenoprata10/nvim-highlight-colors',
+        event = 'BufRead',
         config = function()
-            require 'plugins.config.colorizer'
+            require 'plugins.config.nvim-highlight-colors'
         end
     },
-    { 'mtdl9/vim-log-highlighting' },
+    {
+        'yuuhikaze/plantuml-syntax',
+        ft = { 'puml', 'plantuml', 'uml', 'iuml' },
+        config = function()
+            vim.cmd([[autocmd BufRead,BufNewFile * if !did_filetype() && getline(1) =~# '@startuml\>'| setfiletype plantuml | endif]])
+            vim.cmd([[autocmd BufRead,BufNewFile *.pu,*.uml,*.plantuml,*.puml,*.iuml set filetype=plantuml]])
+        end
+    },
+    {
+        'mtdl9/vim-log-highlighting',
+        ft = 'log'
+    },
     {
         'nvim-tree/nvim-web-devicons',
         config = function()
@@ -221,5 +305,8 @@ require("lazy").setup({
     },
     ui = {
         backdrop = 100
+    },
+    defaults = {
+        lazy = true
     }
 })

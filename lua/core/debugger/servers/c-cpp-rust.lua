@@ -11,18 +11,28 @@ dap.adapters.codelldb = {
     }
 }
 
-dap.configurations.cpp = {
-    {
-        name = "Launch file",
-        type = "codelldb",
-        request = "launch",
-        program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = false,
-    },
+local default_options = {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
 }
 
+dap.configurations.cpp = vim.tbl_deep_extend("force", default_options, {
+    {
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end
+    },
+})
+
+dap.configurations.rust = vim.tbl_deep_extend("force", default_options, {
+    {
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+        end
+    }
+})
+
 dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp

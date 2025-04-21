@@ -33,5 +33,3 @@ if not installed_nvim_dap_virtual_text then
 end
 
 nvim_dap_virtual_text.setup()
-
-dapui.toggle()
