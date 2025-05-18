@@ -30,6 +30,8 @@ local parsers = {
     "svelte",
     "proto",
     "csv",
+    "powershell",
+    "ini",
 }
 
 require("nvim-treesitter.configs").setup {

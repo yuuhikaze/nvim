@@ -199,7 +199,10 @@ require("lazy").setup({
         'nacro90/numb.nvim',
         config = true
     },
-    { 'rickhowe/diffchar.vim' }, -- Better diff mode
+    {
+        'rickhowe/diffchar.vim',
+        event = { "BufRead", "BufAdd" },
+    }, -- Better diff mode
     {
         'tpope/vim-surround',
         event = { "BufRead", "BufAdd" },

@@ -72,6 +72,7 @@ local debuggers = {
     "bash",
     "codelldb",
     "javadbg",
+    "jdtls",
     "javatest"
 }
 
@@ -90,7 +91,8 @@ local tools = {
 
 mason.setup()
 mason_lsp_installer.setup({
-    ensure_installed = vim.tbl_extend("force", servers, { "jdtls" }),
+    ensure_installed = servers,
+    automatic_enable = false,
     automatic_installation = true,
 })
 mason_dap_installer.setup({
