@@ -29,7 +29,7 @@ local parsers = {
     "smali",
     "svelte",
     "proto",
-    "csv",
+    -- "csv",
     "powershell",
     "ini",
 }

@@ -42,7 +42,7 @@ keyset("n", "<Space>tc", ":tabclose<CR>", opts)
 
 -- Buffer operations
 keyset("n", "<leader>bc", ":%s/\\s\\+$//e<CR>", opts)
-keyset("n", "<leader>bd", ":bdelete!<CR>", opts)
+keyset("n", "<leader>bd", ":Bdelete!<CR>", opts)
 keyset("n", "<leader>bn", ":ene<CR>", opts)
 keyset("n", "<leader>bv", ":vnew<CR>", opts)
 keyset("n", "<leader>bh", ":new<CR>", opts)

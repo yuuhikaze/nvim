@@ -162,6 +162,10 @@ require("lazy").setup({
     -- { 'luk400/vim-jukit' },
     -- Enhancements
     {
+        'famiu/bufdelete.nvim',
+        event = { "BufRead", "BufAdd" },
+    },
+    {
         'Shatur/neovim-session-manager',
         config = function()
             require 'plugins.config.session-manager'
@@ -280,7 +284,8 @@ require("lazy").setup({
         'yuuhikaze/plantuml-syntax',
         ft = { 'puml', 'plantuml', 'uml', 'iuml' },
         config = function()
-            vim.cmd([[autocmd BufRead,BufNewFile * if !did_filetype() && getline(1) =~# '@startuml\>'| setfiletype plantuml | endif]])
+            vim.cmd(
+            [[autocmd BufRead,BufNewFile * if !did_filetype() && getline(1) =~# '@startuml\>'| setfiletype plantuml | endif]])
             vim.cmd([[autocmd BufRead,BufNewFile *.pu,*.uml,*.plantuml,*.puml,*.iuml set filetype=plantuml]])
         end
     },
