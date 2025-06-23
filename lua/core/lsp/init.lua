@@ -42,7 +42,8 @@ output: ~/.config/nvim
 ]]
 local script_path = vim.fn.expand("<sfile>:p:h")
 
--- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
+-- list: https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
+-- configuration: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local servers = {
     "mesonlsp",
     "texlab",
@@ -65,9 +66,18 @@ local servers = {
     "glsl_analyzer",
     "pbls",
     "lemminx",
+    "phpactor",
+    "r_language_server",
+    "ols",
+    "dockerls",
+    "docker_compose_language_service",
+    "gopls",
+    "golangci_lint_ls",
+    "postgres_lsp"
 }
 
--- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
+-- list: https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
+-- configuration: https://codeberg.org/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 local debuggers = {
     "bash",
     "codelldb",
@@ -76,7 +86,8 @@ local debuggers = {
     "javatest"
 }
 
--- https://mason-registry.dev/registry/list
+-- list: https://mason-registry.dev/registry/list
+-- configuration: https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
 local tools = {
     "mypy",
     "pylint",
@@ -87,6 +98,8 @@ local tools = {
     "shfmt",
     "clang-format",
     "markdownlint",
+    -- "pint",
+    "pgformatter",
 }
 
 mason.setup()
@@ -128,7 +141,7 @@ local pylsp_options = vim.tbl_deep_extend("force", default_options, {
 local basedpyright_options = vim.tbl_deep_extend("force", default_options, {
     settings = {
         basedpyright = {
-          typeCheckingMode = "standard",
+            typeCheckingMode = "standard",
         },
     },
 })
@@ -153,12 +166,17 @@ local clangd_options = vim.tbl_deep_extend("force", default_options, {
     filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
 })
 
+local r_language_server_options = vim.tbl_deep_extend("force", default_options, {
+    cmd = { vim.fn.stdpath("data") .. '/mason/bin/jdtls/r-languageserver' }
+})
+
 local server_options = {
     ["lua_ls"] = lua_ls_options,
     -- ["pylsp"] = pylsp_options,
     ["basedpyright"] = basedpyright_options,
     ["html"] = html_options,
     ["clangd"] = clangd_options,
+    ["r_language_server"] = r_language_server_options,
 }
 
 vim.g.rustaceanvim = {
@@ -197,6 +215,8 @@ end
 
 local formatting = null_ls.builtins.formatting
 local sources = {
+    -- SQL
+    null_ls.builtins.formatting.pg_format,
     -- Python
     formatting.black,
     -- Java

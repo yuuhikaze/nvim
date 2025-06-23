@@ -22,7 +22,7 @@ require("lualine").setup {
         lualine_a = { 'mode' },
         lualine_b = { { 'filetype', colored = false } },
         lualine_c = { 'diagnostics' },
-        lualine_x = { '%3{codeium#GetStatusString()}' },
+        lualine_x = { },
         lualine_y = { 'branch' },
         lualine_z = { 'progress' },
     },
