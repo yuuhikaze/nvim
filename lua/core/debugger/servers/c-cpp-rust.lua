@@ -1,22 +1,18 @@
 local dap = require('dap')
 
 dap.adapters.codelldb = {
-    type = 'server',
-    port = "${port}",
-    executable = {
-        command = vim.fn.stdpath("data") .. '/mason/packages/codelldb/extension/adapter/codelldb',
-        args = { "--port", "${port}" },
-        -- On windows you may have to uncomment this:
-        -- detached = false,
-    }
+    type = 'executable',
+    command = vim.fn.stdpath("data") .. '/mason/bin/codelldb',
 }
 
 local default_options = {
-    name = "Launch file",
-    type = "codelldb",
-    request = "launch",
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
+    {
+        name = "Launch file",
+        type = "codelldb",
+        request = "launch",
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+    }
 }
 
 dap.configurations.cpp = vim.tbl_deep_extend("force", default_options, {

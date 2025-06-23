@@ -1,4 +1,5 @@
 local parsers = {
+    "query",
     "python",
     "meson",
     "c",
@@ -11,10 +12,10 @@ local parsers = {
     "javascript",
     "typescript",
     "json",
+    "jsonc",
     "toml",
     "yaml",
     "markdown",
-    -- "markdown_inline",
     "vim",
     "slint",
     "bash",
@@ -25,13 +26,23 @@ local parsers = {
     "latex",
     "rust",
     "go",
+    "gomod",
+    "gosum",
     "sql",
     "smali",
     "svelte",
     "proto",
-    -- "csv",
     "powershell",
     "ini",
+    "csv",
+    "markdown_inline",
+    "r",
+    "rnoweb",
+    "odin",
+    "dockerfile",
+    "pem",
+    "haskell",
+    "xml"
 }
 
 require("nvim-treesitter.configs").setup {
@@ -42,4 +53,13 @@ require("nvim-treesitter.configs").setup {
         additional_vim_regex_highlighting = true,
     },
     indent = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<C-S-space>",
+            node_incremental = "<C-S-space>",
+            scope_incremental = false,
+            node_decremental = "<bs>",
+        },
+    },
 }

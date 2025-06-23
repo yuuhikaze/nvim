@@ -145,9 +145,8 @@ keyset("n", "<leader>fw", ":lua require('telescope').extensions.live_grep_args.l
 keyset("n", "<leader>fz", ":Telescope zoxide list<CR>", opts)
 
 -- Cut text [vim-cutlass]
-keyset("n", "m", "d", opts)
 keyset("x", "m", "d", opts)
-keyset("n", "mm", "dd", opts)
+keyset("n", "dy", "dd", opts)
 keyset("n", "M", "D", opts)
 
 -- File tree [nvim-tree]
@@ -190,6 +189,9 @@ keyset("n", "<Space>dc", ":lua require('telescope').extensions.dap.commands{}<CR
 
 -- Display local history [undotree]
 -- keyset("n", "<C-u>", ":UndotreeToggle<CR>", opts)
+
+-- [nabla.nvim]
+keyset("n", "<leader>ll", "<CMD>lua require('nabla').popup()<CR>", opts)
 
 -- Undo mappings
 vim.api.nvim_del_keymap('n', '<C-w>d') -- Show diagnostics under the cursor
