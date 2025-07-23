@@ -416,7 +416,7 @@ require("lazy").setup({
     },
     {
         'brenoprata10/nvim-highlight-colors',
-        event = 'BufRead',
+        event = { "BufRead", "BufAdd" },
         config = function()
             require 'plugins.config.nvim-highlight-colors'
         end

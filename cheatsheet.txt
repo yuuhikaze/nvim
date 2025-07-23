@@ -54,8 +54,10 @@ Save all buffers                                        | <C-a>
 
 # Editor
 Toogle text wrap                                        | <leader>w
-Toggle text fold                                        | <C-Space>
 Reset highlighting                                      | <leader><Space>
+
+Toggle text fold                                        | <C-Space>
+Create mark                                             | <leader>x [position]
 
 Show full path                                          | <leader>p
 Count words                                             | <leader>cw

@@ -42,7 +42,8 @@ local parsers = {
     "dockerfile",
     "pem",
     "haskell",
-    "xml"
+    "xml",
+    "gitignore"
 }
 
 require("nvim-treesitter.configs").setup {
