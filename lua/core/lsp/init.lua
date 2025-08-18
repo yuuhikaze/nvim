@@ -35,7 +35,7 @@ local servers = {
     "vimls",
     "bashls",
     "lua_ls",
-    "marksman",
+    "marksman", -- `root_markers`: { ".marksman.toml", ".git" }
     "matlab_ls",
     "slint_lsp",
     "glsl_analyzer",
@@ -49,7 +49,8 @@ local servers = {
     "gopls",
     "golangci_lint_ls",
     "postgres_lsp",
-    "hls"
+    "hls",
+    "zls"
 }
 
 -- list: https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua

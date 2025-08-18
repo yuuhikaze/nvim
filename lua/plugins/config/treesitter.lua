@@ -43,7 +43,8 @@ local parsers = {
     "pem",
     "haskell",
     "xml",
-    "gitignore"
+    "gitignore",
+    "zig"
 }
 
 require("nvim-treesitter.configs").setup {
