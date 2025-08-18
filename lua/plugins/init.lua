@@ -81,9 +81,22 @@ require("lazy").setup({
         opts = {
             -- add any opts here
             -- for example
-            provider = "claude",
+            -- provider = "claude",
+            provider = "copilot",
             providers = {
-                claude = {
+                copilot = {
+                    endpoint = "https://api.githubcopilot.com",
+                    model = "gpt-4o-2024-11-20",
+                    proxy = nil,            -- [protocol://]host[:port] Use this proxy
+                    allow_insecure = false, -- Allow insecure server connections
+                    timeout = 30000,        -- Timeout in milliseconds
+                    context_window = 64000, -- Number of tokens to send to the model for context
+                    extra_request_body = {
+                        temperature = 0.75,
+                        max_tokens = 20480,
+                    },
+                },
+                --[[ claude = {
                     endpoint = "https://api.anthropic.com",
                     model = "claude-sonnet-4-20250514",
                     timeout = 30000, -- Timeout in milliseconds
@@ -91,7 +104,7 @@ require("lazy").setup({
                     extra_request_body = {
                         temperature = 0.75,
                     },
-                },
+                }, ]]
             },
             input = {
                 provider = "dressing", -- "native" | "dressing" | "snacks"
@@ -139,6 +152,26 @@ require("lazy").setup({
             "stevearc/dressing.nvim",        -- for input provider dressing
             "folke/snacks.nvim",             -- for input provider snacks
             "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+            -- for providers='copilot'
+            {
+                "zbirenbaum/copilot.lua",
+                event = 'InsertEnter',
+                config = function()
+                    require("copilot").setup({})
+                end,
+                opts = {
+                    panel = {
+                        enabled = false,
+                    },
+                    suggestion = {
+                        auto_trigger = true,
+                        hide_during_completion = false,
+                        keymap = {
+                            accept = '<Tab>',
+                        },
+                    },
+                },
+            },
             {
                 -- support for image pasting
                 "HakonHarnes/img-clip.nvim",
