@@ -1,10 +1,18 @@
-local installed_jdtls, jdtls = pcall(require, "jdtls")
-if not installed_jdtls then
-    return
-end
+-- credits: https://github.com/neovim/nvim-lspconfig/issues/1633, https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+local M = {}
 
 local handlers = require("core.lsp.handlers")
-local config = {
+
+M.config = {
+    settings = {
+        java = {
+            format = {
+                settings = {
+                    url = vim.fn.stdpath("config") .. "/lua/core/formatters/config/jdtls.xml"
+                },
+            },
+        },
+    },
     cmd = { vim.fn.stdpath("data") .. '/mason/bin/jdtls' },
     root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
     init_options = {
@@ -17,4 +25,4 @@ local config = {
     capabilities = handlers.capabilities,
 }
 
-jdtls.start_or_attach(config)
+return M

@@ -9,14 +9,6 @@ local mason_tool_installer = require("mason-tool-installer")
 local mason_dap_installer = require("mason-nvim-dap")
 local lspconfig = require("lspconfig")
 
---[[
-script file: ~/.config/nvim/init.lua
-:p = absolute file path
-:h = truncates filename
-output: ~/.config/nvim
-]]
-local script_path = vim.fn.expand("<sfile>:p:h")
-
 -- list: https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
 -- configuration: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local servers = {
@@ -50,7 +42,8 @@ local servers = {
     "golangci_lint_ls",
     "postgres_lsp",
     "hls",
-    "zls"
+    "zls",
+    -- "nil_ls",
 }
 
 -- list: https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
@@ -78,6 +71,7 @@ local tools = {
     -- "fourmolu",
     -- "pint",
     "pgformatter",
+    "nixfmt",
 }
 
 mason.setup()
@@ -206,7 +200,7 @@ local sources = {
     require("none-ls-shellcheck.code_actions"),
     formatting.shfmt.with({ extra_args = { "--indent=4", "-ci", "-sr" } }),
     -- Markdown
-    formatting.markdownlint.with({ extra_args = { string.format("--config=%s/lua/core/formatters/config/.markdownlint.jsonc", script_path) } }),
+    formatting.markdownlint.with({ extra_args = { string.format("--config=%s/lua/core/formatters/config/.markdownlint.jsonc", vim.fn.stdpath("config")) } }),
     -- CPP
     formatting.clang_format.with({ extra_args = { string.format("--style=%s", "{IndentWidth: 4, ColumnLimit: 0, IndentCaseLabels: true}") } }),
     -- HTML

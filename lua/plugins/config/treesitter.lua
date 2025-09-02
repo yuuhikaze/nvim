@@ -44,7 +44,8 @@ local parsers = {
     "haskell",
     "xml",
     "gitignore",
-    "zig"
+    "zig",
+    "nix",
 }
 
 require("nvim-treesitter.configs").setup {

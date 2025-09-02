@@ -45,7 +45,16 @@ require("lazy").setup({
     }, ]]
     {
         'mfussenegger/nvim-jdtls',
-        dependencies = "mfussenegger/nvim-dap"
+        dependencies = "mfussenegger/nvim-dap",
+        ft = "java",
+        config = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "java",
+                callback = function()
+                    require("jdtls").start_or_attach(require("plugins.config.jdtls").config)
+                end,
+            })
+        end
     },
     -- CMP
     {
@@ -217,6 +226,7 @@ require("lazy").setup({
     {
         'xeluxee/competitest.nvim',
         dependencies = 'MunifTanjim/nui.nvim',
+        lazy = false,
         config = function()
             require 'plugins.config.competitest'
         end

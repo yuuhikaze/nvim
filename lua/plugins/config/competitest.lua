@@ -1,8 +1,6 @@
-local script_path = vim.fn.expand("<sfile>:p:h") -- ~/.config/nvim/plugin
-
 require("competitest").setup {
     testcases_use_single_file = true,
-    template_file = string.format("%s/../lua/plugins/config/competitest/template.$(FEXT)", script_path),
+    template_file = vim.fn.stdpath("config") .. "/lua/plugins/config/competitest/template.$(FEXT)",
     evaluate_template_modifiers = true,
     compile_command = {
         c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT).out" } },
