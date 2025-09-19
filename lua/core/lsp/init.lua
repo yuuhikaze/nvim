@@ -41,7 +41,7 @@ local servers = {
     "gopls",
     "golangci_lint_ls",
     "postgres_lsp",
-    "hls",
+    -- "hls", -- HEAVY! ~2GiB
     "zls",
     -- "nil_ls",
 }

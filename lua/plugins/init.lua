@@ -83,7 +83,7 @@ require("lazy").setup({
         -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
         build = "make", -- ⚠️ must add this line! ! !
         -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         version = false, -- Never set this value to "*"! Never!
         ---@module 'avante'
         ---@type avante.Config
@@ -203,6 +203,7 @@ require("lazy").setup({
             },
         },
         keys = {
+            { "<leader>at", "<CMD>AvanteToggle<CR>" },
             {
                 "<leader>a+",
                 function()

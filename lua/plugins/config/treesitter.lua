@@ -46,6 +46,7 @@ local parsers = {
     "gitignore",
     "zig",
     "nix",
+    "matlab",
 }
 
 require("nvim-treesitter.configs").setup {
