@@ -139,7 +139,7 @@ local clangd_options = vim.tbl_deep_extend("force", default_options, {
 })
 
 local r_language_server_options = vim.tbl_deep_extend("force", default_options, {
-    cmd = { vim.fn.stdpath("data") .. '/mason/bin/jdtls/r-languageserver' }
+    cmd = { vim.fn.stdpath("data") .. '/mason/bin/r-languageserver' }
 })
 
 local server_options = {
