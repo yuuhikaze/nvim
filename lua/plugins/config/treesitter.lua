@@ -47,6 +47,8 @@ local parsers = {
     "zig",
     "nix",
     "matlab",
+    "jinja",
+    "jinja_inline",
 }
 
 require("nvim-treesitter.configs").setup {

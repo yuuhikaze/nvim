@@ -43,7 +43,7 @@ local servers = {
     "postgres_lsp",
     -- "hls", -- HEAVY! ~2GiB
     "zls",
-    -- "nil_ls",
+    "nil_ls", -- ensure nix is available on your system
 }
 
 -- list: https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
@@ -94,21 +94,6 @@ local default_options = {
     on_attach = handlers.on_attach,
     capabilities = handlers.capabilities,
 }
-
-local pylsp_options = vim.tbl_deep_extend("force", default_options, {
-    settings = {
-        pylsp = {
-            plugins = {
-                pycodestyle = {
-                    enabled = true,
-                    ignore = { 'E501', 'E231' },
-                    maxLineLength = 120
-                },
-                yapf = { enabled = true }
-            }
-        }
-    },
-})
 
 local basedpyright_options = vim.tbl_deep_extend("force", default_options, {
     settings = {

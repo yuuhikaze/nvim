@@ -29,3 +29,11 @@ autocmd('WinLeave', {
         end
     end,
 })
+
+-- Set filetype of jinja template files
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = "*.j2",
+    callback = function()
+        vim.cmd("set filetype=jinja")
+    end,
+})

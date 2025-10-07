@@ -72,158 +72,6 @@ require("lazy").setup({
             require 'plugins.config.cmp'
         end
     },
-    --[[ {
-        'Exafunction/codeium.vim',
-        config = function()
-            require 'plugins.config.codeium'
-        end
-    }, ]]
-    {
-        "yetone/avante.nvim",
-        -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-        build = "make", -- ⚠️ must add this line! ! !
-        -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-        -- event = "VeryLazy",
-        version = false, -- Never set this value to "*"! Never!
-        ---@module 'avante'
-        ---@type avante.Config
-        opts = {
-            -- add any opts here
-            -- for example
-            -- provider = "claude",
-            provider = "copilot",
-            providers = {
-                copilot = {
-                    endpoint = "https://api.githubcopilot.com",
-                    model = "gpt-4o-2024-11-20",
-                    proxy = nil,            -- [protocol://]host[:port] Use this proxy
-                    allow_insecure = false, -- Allow insecure server connections
-                    timeout = 30000,        -- Timeout in milliseconds
-                    context_window = 64000, -- Number of tokens to send to the model for context
-                    extra_request_body = {
-                        temperature = 0.75,
-                        max_tokens = 20480,
-                    },
-                },
-                --[[ claude = {
-                    endpoint = "https://api.anthropic.com",
-                    model = "claude-sonnet-4-20250514",
-                    timeout = 30000, -- Timeout in milliseconds
-                    -- disable_tools = true,
-                    extra_request_body = {
-                        temperature = 0.75,
-                    },
-                }, ]]
-            },
-            input = {
-                provider = "dressing", -- "native" | "dressing" | "snacks"
-                provider_opts = {
-                    -- Snacks input configuration
-                    title = "Avante Input",
-                    icon = " ",
-                    placeholder = "Enter your API key...",
-                },
-            },
-            selector = {
-                exclude_auto_select = { "NvimTree" },
-            },
-            windows = {
-                ---@type "right" | "left" | "top" | "bottom"
-                position = "right", -- the position of the sidebar
-                wrap = true,        -- similar to vim.o.wrap
-                width = 30,         -- default % based on available width
-                sidebar_header = {
-                    enabled = true, -- true, false to enable/disable the header
-                    rounded = false
-                },
-                edit = {
-                    border = "rounded",
-                    start_insert = false, -- Start insert mode when opening the edit window
-                },
-                ask = {
-                    floating = false,     -- Open the 'AvanteAsk' prompt in a floating window
-                    start_insert = false, -- Start insert mode when opening the ask window
-                    border = "rounded",
-                    ---@type "ours" | "theirs"
-                    focus_on_apply = "ours", -- which diff to focus after applying
-                },
-            },
-        },
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-lua/plenary.nvim",
-            "MunifTanjim/nui.nvim",
-            --- The below dependencies are optional,
-            "echasnovski/mini.pick",         -- for file_selector provider mini.pick
-            "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-            "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
-            "ibhagwan/fzf-lua",              -- for file_selector provider fzf
-            "stevearc/dressing.nvim",        -- for input provider dressing
-            "folke/snacks.nvim",             -- for input provider snacks
-            "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
-            -- for providers='copilot'
-            {
-                "zbirenbaum/copilot.lua",
-                event = 'InsertEnter',
-                config = function()
-                    require("copilot").setup({})
-                end,
-                opts = {
-                    panel = {
-                        enabled = false,
-                    },
-                    suggestion = {
-                        auto_trigger = true,
-                        hide_during_completion = false,
-                        keymap = {
-                            accept = '<Tab>',
-                        },
-                    },
-                },
-            },
-            {
-                -- support for image pasting
-                "HakonHarnes/img-clip.nvim",
-                event = "VeryLazy",
-                opts = {
-                    -- recommended settings
-                    default = {
-                        embed_image_as_base64 = false,
-                        prompt_for_file_name = false,
-                        drag_and_drop = {
-                            insert_mode = false,
-                        },
-                        -- required for Windows users
-                        use_absolute_path = true,
-                    },
-                },
-                keys = {
-                    { "<leader>P", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
-                },
-            },
-        },
-        keys = {
-            { "<leader>at", "<CMD>AvanteToggle<CR>" },
-            {
-                "<leader>a+",
-                function()
-                    local tree_ext = require("avante.extensions.nvim_tree")
-                    tree_ext.add_file()
-                end,
-                desc = "Select file in NvimTree",
-                ft = "NvimTree",
-            },
-            {
-                "<leader>a-",
-                function()
-                    local tree_ext = require("avante.extensions.nvim_tree")
-                    tree_ext.remove_file()
-                end,
-                desc = "Deselect file in NvimTree",
-                ft = "NvimTree",
-            },
-        },
-    },
     {
         'xeluxee/competitest.nvim',
         dependencies = 'MunifTanjim/nui.nvim',
@@ -322,7 +170,7 @@ require("lazy").setup({
     -- { 'luk400/vim-jukit' },
     -- Enhancements
     { 'jbyuki/nabla.nvim' },
-    { -- @ yetone/avante.nvim
+    {
         -- Make sure to set this up properly if you have lazy=true
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
@@ -330,13 +178,6 @@ require("lazy").setup({
         },
         ft = { "markdown", "Avante" },
     },
-    --[[ {
-        'echasnovski/mini.ai',
-        event = { "BufRead", "BufAdd" },
-        config = function()
-            require('mini.ai').setup()
-        end,
-    }, ]]
     {
         'famiu/bufdelete.nvim',
         event = { "BufRead", "BufAdd" },
