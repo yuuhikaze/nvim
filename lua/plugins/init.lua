@@ -30,6 +30,12 @@ require("lazy").setup({
         lazy = false,   -- This plugin is already lazy
     },
     {
+        'LhKipp/nvim-nu',
+        config = function()
+            require 'plugins.config.nu'
+        end
+    },
+    {
         'R-nvim/R.nvim',
         ft = { 'qmd', 'rmd' },
     },
