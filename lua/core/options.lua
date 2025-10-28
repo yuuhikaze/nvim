@@ -51,3 +51,5 @@ vim.filetype.add({
         slint = 'slint',
     }
 })
+
+vim.lsp.inlay_hint.enable(true)
