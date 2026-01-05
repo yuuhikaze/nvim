@@ -50,7 +50,7 @@ keyset("n", "<leader>bV", ":vert belowright sb ", { noremap = true })
 keyset("n", "<leader>bH", ":sbuffer ", { noremap = true })
 
 keyset("n", "<leader>dm", ":vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis | wincmd p | diffthis<CR>",
-    opts)                                                                                                                    -- :help :DiffOrig
+    opts) -- :help :DiffOrig
 keyset("n", "<leader>dt", ":windo diffthis<CR>", opts)
 keyset("n", "<leader>do", ":windo diffoff<CR>", opts)
 
@@ -134,6 +134,23 @@ keyset("v", "=", "0", opts)
 keyset("n", "#", "*", opts)
 keyset("v", "#", "*", opts)
 keyset("n", "<leader>y", "gg0vG$y", opts)
+
+-- smarter gx
+keyset("n", "gx", function()
+    local path = vim.fn.expand("<cfile>")
+    -- If it's a local path, convert to absolute file:// URI
+    if path:match("^./") or path:match("^../") or path:match("^/") then
+        -- Get absolute path and ensure # is preserved
+        local absolute_path = vim.fn.fnamemodify(path, ":p")
+        path = "file://" .. absolute_path
+    end
+    -- Use nvim's built-in opener (0.10+) or xdg-open
+    if vim.ui and vim.ui.open then
+        vim.ui.open(path)
+    else
+        vim.fn.jobstart({ "xdg-open", path }, { detach = true })
+    end
+end, { desc = "Smarter gx for anchor parsing" })
 
 -- PLUGIN SPECIFIC
 -- Display keybindings [cheatsheet]
