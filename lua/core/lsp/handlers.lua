@@ -36,6 +36,15 @@ M.on_attach = function(client, bufnr)
     keymaps(bufnr)
 end
 
+-- LspAttach autocmd for servers using vim.lsp.enable() (e.g., dartls)
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP actions',
+    callback = function(event)
+        vim.api.nvim_buf_set_option(event.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
+        keymaps(event.buf)
+    end
+})
+
 M.capabilities = cmp_nvim_lsp.default_capabilities()
 M.capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,

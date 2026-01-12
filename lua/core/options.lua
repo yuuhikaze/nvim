@@ -53,3 +53,4 @@ vim.filetype.add({
 })
 
 vim.lsp.inlay_hint.enable(true)
+vim.lsp.enable("dartls")

@@ -50,6 +50,7 @@ local parsers = {
     "jinja",
     "jinja_inline",
     "nu",
+    "dart",
 }
 
 require("nvim-treesitter.configs").setup {
