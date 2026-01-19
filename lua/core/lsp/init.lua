@@ -7,7 +7,6 @@ local mason = require("mason")
 local mason_lsp_installer = require("mason-lspconfig")
 local mason_tool_installer = require("mason-tool-installer")
 local mason_dap_installer = require("mason-nvim-dap")
-local lspconfig = require("lspconfig")
 
 -- list: https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
 -- configuration: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
@@ -15,6 +14,7 @@ local servers = {
     "mesonlsp",
     "texlab",
     "basedpyright",
+    "ruff", -- Fast Python linter/formatter (native LSP server)
     "clangd",
     "csharp_ls",
     "html",
@@ -60,9 +60,7 @@ local debuggers = {
 -- configuration: https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
 local tools = {
     "mypy",
-    "pylint",
     "prettier",
-    "black",
     "google-java-format",
     "shellcheck",
     "shfmt",
@@ -90,12 +88,9 @@ mason_tool_installer.setup {
 
 local handlers = require("core.lsp.handlers")
 
-local default_options = {
-    on_attach = handlers.on_attach,
+-- Server-specific configurations using vim.lsp.config (Neovim 0.11+)
+vim.lsp.config('basedpyright', {
     capabilities = handlers.capabilities,
-}
-
-local basedpyright_options = vim.tbl_deep_extend("force", default_options, {
     settings = {
         basedpyright = {
             typeCheckingMode = "standard",
@@ -103,7 +98,8 @@ local basedpyright_options = vim.tbl_deep_extend("force", default_options, {
     },
 })
 
-local lua_ls_options = vim.tbl_deep_extend("force", default_options, {
+vim.lsp.config('lua_ls', {
+    capabilities = handlers.capabilities,
     settings = {
         Lua = {
             workspace = {
@@ -113,28 +109,36 @@ local lua_ls_options = vim.tbl_deep_extend("force", default_options, {
     },
 })
 
-local html_options = vim.tbl_deep_extend("force", default_options, {
+vim.lsp.config('html', {
+    capabilities = handlers.capabilities,
     init_options = {
         provideFormatter = false
     },
 })
 
-local clangd_options = vim.tbl_deep_extend("force", default_options, {
+vim.lsp.config('clangd', {
+    capabilities = handlers.capabilities,
     filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
 })
 
-local r_language_server_options = vim.tbl_deep_extend("force", default_options, {
+vim.lsp.config('r_language_server', {
+    capabilities = handlers.capabilities,
     cmd = { vim.fn.stdpath("data") .. '/mason/bin/r-languageserver' }
 })
 
-local server_options = {
-    ["lua_ls"] = lua_ls_options,
-    -- ["pylsp"] = pylsp_options,
-    ["basedpyright"] = basedpyright_options,
-    ["html"] = html_options,
-    ["clangd"] = clangd_options,
-    ["r_language_server"] = r_language_server_options,
-}
+vim.lsp.config('ruff', {
+    capabilities = handlers.capabilities,
+    -- Disable hover in ruff to avoid conflicts with basedpyright
+    on_attach = function(client, bufnr)
+        client.server_capabilities.hoverProvider = false
+        handlers.on_attach(client, bufnr)
+    end,
+})
+
+-- Set default capabilities for all other servers
+vim.lsp.config('*', {
+    capabilities = handlers.capabilities,
+})
 
 vim.g.rustaceanvim = {
     server = {
@@ -150,20 +154,13 @@ vim.g.rustaceanvim = {
     }
 }
 
+-- Enable all LSP servers (Neovim 0.11+ API)
 for _, server in pairs(servers) do
-    local server_option = server_options[server]
-    if server_option then
-        lspconfig[server].setup(server_option)
-    else
-        lspconfig[server].setup(default_options)
-    end
+    vim.lsp.enable(server)
 end
 
---[[
-Henceforth manual setup of servers integrated into `nvim-lspconfig`
-    Reason: They are not available for automatic installation in `mason-lspconfig`
-]]
-lspconfig["gdscript"].setup(default_options)
+-- Manual LSP servers (not in mason-lspconfig)
+vim.lsp.enable("gdscript")
 
 local installed_null_ls, null_ls = pcall(require, "null-ls")
 if not installed_null_ls then
@@ -176,8 +173,7 @@ local sources = {
     -- null_ls.builtins.formatting.fourmolu.with({ extra_args = { "--indentation=4" } }),
     -- SQL
     null_ls.builtins.formatting.pg_format,
-    -- Python
-    formatting.black,
+    -- Python formatting/linting now handled by ruff LSP server
     -- Java
     formatting.google_java_format.with({ extra_args = { "--aosp" } }),
     -- Shell script

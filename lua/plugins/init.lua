@@ -105,6 +105,37 @@ require("lazy").setup({
     { 'folke/neodev.nvim' },
     { 'nvim-telescope/telescope-dap.nvim' },
     { 'mfussenegger/nvim-dap-python' },
+    -- Jupyter/Notebook Integration
+    {
+        'benlubas/molten-nvim',
+        version = "^1.0.0",
+        build = ":UpdateRemotePlugins",
+        ft = { "python", "markdown", "quarto", "json" },
+        config = function()
+            require 'plugins.config.molten'
+        end
+    },
+    {
+        '3rd/image.nvim',
+        ft = { "python", "markdown", "quarto" },
+        config = function()
+            require 'plugins.config.image'
+        end
+    },
+    {
+        'quarto-dev/quarto-nvim',
+        ft = { "quarto", "markdown" },
+        dependencies = {
+            'jmbuhr/otter.nvim',
+        },
+    },
+    {
+        'goerz/jupytext.nvim',
+        version = '0.2.0',
+        -- ft = { "python", "markdown" },
+        opts = {},
+        lazy = false
+    },
     -- Snippets
     {
         "L3MON4D3/LuaSnip",
