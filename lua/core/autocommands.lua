@@ -81,3 +81,11 @@ autogroup("ibhagwan/DoNotAutoScroll", function(g)
         end
     })
 end)
+
+-- Automatically csvview.nvim with specific flags when entering a CSV file
+autocmd("FileType", {
+    pattern = "csv",
+    callback = function()
+        vim.cmd("CsvViewEnable delimiter=, display_mode=border header_lnum=1")
+    end,
+})
