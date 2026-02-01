@@ -91,11 +91,13 @@ local handlers = require("core.lsp.handlers")
 -- Server-specific configurations using vim.lsp.config (Neovim 0.11+)
 vim.lsp.config('basedpyright', {
     capabilities = handlers.capabilities,
-    -- settings = {
-    --     basedpyright = {
-    --         typeCheckingMode = "standard",
-    --     },
-    -- },
+    settings = {
+        basedpyright = {
+            analysis = {
+                typeCheckingMode = "standard",
+            },
+        },
+    },
 })
 
 vim.lsp.config('lua_ls', {

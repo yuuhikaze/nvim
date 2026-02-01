@@ -1,7 +1,12 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
+-- Load snippets from friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
+-- Load snippets from flutter-snippets
+require("luasnip.loaders.from_vscode").lazy_load({
+    paths = { vim.fn.stdpath("data") .. "/lazy/flutter-snippets" }
+})
 
 local check_backspace = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))

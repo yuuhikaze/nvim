@@ -142,7 +142,10 @@ require("lazy").setup({
         event = 'BufRead',
         version = "v2.*",
         build = "make install_jsregexp",
-        dependencies = "rafamadriz/friendly-snippets"
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            "zyllus17/flutter-snippets"
+        }
     },
     -- Extended functionality
     {

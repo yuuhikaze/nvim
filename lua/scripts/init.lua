@@ -9,3 +9,5 @@ vim.keymap.set("x", "y", function()
     preserve_cursor.yank()
     vim.cmd("normal! y")
 end, { noremap = true, silent = true })
+
+require "scripts.basedpyright"
