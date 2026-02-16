@@ -25,8 +25,6 @@ end
 
 dapui.setup()
 
-require('telescope').load_extension('dap')
-
 local installed_nvim_dap_virtual_text, nvim_dap_virtual_text = pcall(require, "nvim-dap-virtual-text")
 if not installed_nvim_dap_virtual_text then
     return

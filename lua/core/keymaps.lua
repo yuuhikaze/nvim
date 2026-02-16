@@ -156,11 +156,11 @@ end, { desc = "Smarter gx for anchor parsing" })
 -- Display keybindings [cheatsheet]
 -- keyset("n", "?", ":Cheatsheet<CR>", opts)
 
--- Fuzzy file manager [Telescope]
-keyset("n", "<leader>ff", ":Telescope find_files hidden=true<CR>", opts) -- hidden=true → Shows hidden files
-keyset("n", "<leader>fo", ":Telescope oldfiles<CR>", opts)
-keyset("n", "<leader>fw", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
-keyset("n", "<leader>fz", ":Telescope zoxide list<CR>", opts)
+-- Fuzzy file manager [Snacks]
+keyset("n", "<leader>ff", function() Snacks.picker.files() end, opts)
+keyset("n", "<leader>fo", function() Snacks.picker.recent() end, opts)
+keyset("n", "<leader>fw", function() Snacks.picker.grep() end, opts)
+-- keyset("n", "<leader>fz", ":Telescope zoxide list<CR>", opts) -- TODO: Find snacks alternative or keep telescope-zoxide
 
 -- Cut text [vim-cutlass]
 keyset("n", "m", "d", opts)
@@ -203,8 +203,9 @@ keyset("n", "<Space>dj", ":DapStepInto<CR>", opts)
 keyset("n", "<Space>dk", ":DapStepOut<CR>", opts)
 keyset("n", "<Space>dl", ":DapStepOver<CR>", opts)
 keyset("n", "<Space>dt", ":DapTerminate<CR>", opts)
-keyset("n", "<Space>df", ":lua require('telescope').extensions.dap.list_breakpoints{}<CR>", opts)
-keyset("n", "<Space>dc", ":lua require('telescope').extensions.dap.commands{}<CR>", opts)
+-- DAP pickers (TODO: migrate to snacks or use native dap commands)
+-- keyset("n", "<Space>df", ":lua require('telescope').extensions.dap.list_breakpoints{}<CR>", opts)
+-- keyset("n", "<Space>dc", ":lua require('telescope').extensions.dap.commands{}<CR>", opts)
 
 -- Display local history [undotree]
 -- keyset("n", "<C-u>", ":UndotreeToggle<CR>", opts)

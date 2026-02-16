@@ -62,20 +62,15 @@ require("lazy").setup({
             })
         end
     },
-    -- CMP
+    -- CMP (blink.cmp - faster alternative to nvim-cmp)
     {
-        'hrsh7th/nvim-cmp',
-        event = 'BufRead',
-        dependencies = { -- TODO
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'saadparwaiz1/cmp_luasnip'
-        },
+        'saghen/blink.cmp',
+        lazy = false,
+        dependencies = 'rafamadriz/friendly-snippets',
+        version = 'v0.*',
+        opts = {},
         config = function()
-            require 'plugins.config.cmp'
+            require 'plugins.config.blink'
         end
     },
     {
@@ -103,7 +98,6 @@ require("lazy").setup({
     },
     { 'theHamsta/nvim-dap-virtual-text' },
     { 'folke/neodev.nvim' },
-    { 'nvim-telescope/telescope-dap.nvim' },
     { 'mfussenegger/nvim-dap-python' },
     -- Jupyter/Notebook Integration
     {
@@ -148,6 +142,17 @@ require("lazy").setup({
         }
     },
     -- Extended functionality
+    -- Plenary (required by many plugins)
+    { 'nvim-lua/plenary.nvim', lazy = false },
+    -- Snacks.nvim (faster alternative to telescope)
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        config = function()
+            require 'plugins.config.snacks'
+        end
+    },
     {
         "coder/claudecode.nvim",
         dependencies = { "folke/snacks.nvim" },
@@ -173,33 +178,24 @@ require("lazy").setup({
         },
     },
     {
-        'nvim-telescope/telescope.nvim',
-        event = 'VimEnter',
-        dependencies = {
-            'BurntSushi/ripgrep',
-            'nvim-lua/plenary.nvim',
-        },
-        config = function()
-            require 'plugins.config.telescope'
-        end
-    },
-    {
-        'jvgrootveld/telescope-zoxide',
-        dependencies = {
-            'nvim-lua/popup.nvim',
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-        },
-    },
-    { 'nvim-telescope/telescope-ui-select.nvim' }, -- Presents native selection dialogs with telescope.
-    { 'nvim-telescope/telescope-live-grep-args.nvim' },
-    {
         'folke/zen-mode.nvim',
         keys = {
             { "<leader>z", "<CMD>ZenMode<CR>" },
         },
         config = function()
             require 'plugins.config.zen-mode'
+        end
+    },
+    -- Noice.nvim (better cmdline and error experience)
+    {
+        'folke/noice.nvim',
+        event = "VeryLazy",
+        dependencies = {
+            'MunifTanjim/nui.nvim',
+            'rcarriga/nvim-notify',
+        },
+        config = function()
+            require 'plugins.config.noice'
         end
     },
     {
@@ -295,6 +291,7 @@ require("lazy").setup({
     {
         'Shatur/neovim-session-manager',
         lazy = false,
+        dependencies = 'nvim-lua/plenary.nvim',
         config = function()
             require 'plugins.config.session-manager'
         end
@@ -341,13 +338,6 @@ require("lazy").setup({
     },
     -- Interface
     {
-        'goolord/alpha-nvim',
-        event = "VimEnter",
-        config = function()
-            require 'plugins.config.alpha'
-        end
-    },
-    {
         'kyazdani42/nvim-tree.lua',
         keys = {
             { "<leader>e", "<CMD>NvimTreeToggle<CR>" },
@@ -369,20 +359,6 @@ require("lazy").setup({
         -- dependencies = "Exafunction/codeium.vim",
         config = function()
             require 'plugins.config.lualine'
-        end
-    },
-    {
-        'sudormrfbin/cheatsheet.nvim',
-        keys = {
-            { "?", "<CMD>Cheatsheet<CR>" },
-        },
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-            'nvim-lua/popup.nvim',
-            'nvim-lua/plenary.nvim',
-        },
-        config = function()
-            require 'plugins.config.cheatsheet'
         end
     },
     -- Aesthetics
