@@ -74,9 +74,19 @@ require("lazy").setup({
         end
     },
     {
-        'xeluxee/competitest.nvim',
+        dir = '/home/user/plugin/kattis.nvim/misc/competitest.nvim',
+        name = 'competitest.nvim',
         dependencies = 'MunifTanjim/nui.nvim',
         lazy = false,
+        --[[ config = function()
+            require('competitest').setup({
+                submit = {
+                    kattis = {
+                        config_file = vim.fn.expand('~/.kattisrc'),
+                    },
+                },
+            })
+        end ]]
         config = function()
             require 'plugins.config.competitest'
         end

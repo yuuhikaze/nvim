@@ -6,13 +6,20 @@ require("competitest").setup {
         c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT).out" } },
         cpp = { exec = "g++", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT).out" } },
         rust = { exec = "rustc", args = { "$(FNAME)" } },
+        zig = { exec = "zig", args = { "build-exe", "-O", "ReleaseFast", "-femit-bin=$(FNOEXT).out", "$(FNAME)" } },
         java = { exec = "javac", args = { "$(FNAME)" } },
     },
     run_command = {
         c = { exec = "./$(FNOEXT).out" },
         cpp = { exec = "./$(FNOEXT).out" },
         rust = { exec = "./$(FNOEXT)" },
+        zig = { exec = "./$(FNOEXT).out" },
         python = { exec = "python", args = { "$(FNAME)" } },
         java = { exec = "java", args = { "$(FNOEXT)" } },
+    },
+    submit = {
+        kattis = {
+            config_file = vim.fn.expand('~/.kattisrc'),
+        },
     },
 }

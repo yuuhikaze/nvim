@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
--- Get capabilities from blink.cmp
+-- Get capabilities from blink.cmp (disable snippetSupport to prevent literal parameter insertion)
 M.capabilities = require('blink.cmp').get_lsp_capabilities()
 M.capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
