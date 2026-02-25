@@ -245,7 +245,7 @@ require("lazy").setup({
     },
     {
         "hat0uma/csvview.nvim",
-        ft = "csv",
+        -- ft = "csv",
         ---@module "csvview"
         ---@type CsvView.Options
         opts = {
